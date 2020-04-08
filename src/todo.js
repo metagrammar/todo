@@ -51,4 +51,3 @@ todoDataBase.pop();
 console.log('log after delete --------------');
 console.log(todoDataBase.map(todoObject => todoObject.todoTaskTitle));
 
-
