@@ -62,6 +62,11 @@ button.add-todo {
     justify-items: center;
 }
 
+button.add-todo:hover {
+    background-color: #000;
+    color: #ffffff;
+}
+
 .add-todo {
     border:0;
     height: inherit;
