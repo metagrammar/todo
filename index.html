@@ -1,18 +1,100 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>to-do list</title>
+<head>
+    <title>to do list</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="src/styles.css" />
-  </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <body>
-    <div class="container">
-        <div class="left"> </div>
-        <div class="center"> 
-            
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Google Icons-->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+
+     <!-- Reset stylesheet -->
+     <link rel="stylesheet" type="text/css" href="src/reset.css">
+
+     <!-- Custom stylesheet -->
+     <link rel="stylesheet" type="text/css" href="src/styles.css">
+</head>
+<body>
+    <div class="navigation">
+        <div class="navbar">
+           <h1><span>do</span> / me</h1>
+            <button class="add-todo"><span class="material-icons">add</span></button>
         </div>
-        <div class="right"> </div>
+    </div>
+    <div class="parent">
+        
+        <div class="content">
+            <div class="content-gridder">
+                <div class="content-wrapper">
+                    <div class="todo-box">
+                        <div class="todo-time">
+                            <span class="material-icons">alarm</span>12:00h
+                        </div>
+                        <label class="checkbox-container">
+                            <div class="todo-text">
+                                Text that the user inputs for the to do. Maybe text should be set to a maximum of 140 characters. For example this text has 139 characters.
+                            </div> 
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <div class="todo-box">
+                        <div class="todo-time">
+                            <span class="material-icons">alarm</span>14:45h
+                        </div>
+                        <label class="checkbox-container">
+                            <div class="todo-text">
+                                Text that the user inputs for the to do. For example this text has 81 characters.
+                            </div> 
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <div class="todo-box">
+                        <div class="todo-time">
+                            <span class="material-icons">alarm</span>18:15h
+                        </div>
+                        <label class="checkbox-container">
+                            <div class="todo-text">
+                                Wash the dog.
+                            </div> 
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <div class="todo-box">
+                    </div>
+                    <div class="todo-box">
+                    </div>
+                    <div class="todo-box">
+                    </div>
+                </div>
+            </div>
+            <div class="content-gridder">
+                <div class="content-wrapper todo-done">
+                    <div class="todo-box">
+                        <div class="todo-time">
+                            <span class="material-icons">alarm</span>09:45h
+                        </div>
+                        <label class="checkbox-container">
+                            <div class="todo-text">
+                                Morning meeting with colleagues.
+                            </div> 
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
-  </body>
+
+        <div class="footer"></div>
+    </div>
+</body>
 </html>
