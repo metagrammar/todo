@@ -21,7 +21,7 @@
     <div class="navigation">
         <div class="navbar">
            <h1><span>do</span> / me</h1>
-            <button class="add-todo"><span class="material-icons">add</span></button>
+            <a href="modal.html" class="add-todo" id="newTodo" ><span class="material-icons">add</span></a>
         </div>
     </div>
     <div class="parent">
@@ -95,6 +95,28 @@
         </div>
 
         <div class="footer"></div>
+
+        <!-- The modal page for creating, editing and deleting the todos -->
+        <div class= "model_box">
+            <div class= "model_header_button">
+                <button type="xbutton">X</button>
+            </div>
+            <div class= "model_content">
+                <div class= "model_content_header">Do me</div>
+                <div class= "model_content_box"> 
+                    <textarea placeholder="What would you like to do?" cols="30" rows="5"></textarea>
+                </div>
+                <div class= "model_content_header">Do me by?</div>
+                <div class= "due_date_ticker"></div>
+            </div>
+            <div class= "model_footer">
+                <div class= "model_footer_buttons">
+                    <button type= "elliptical_button">Delete</button>
+                    <button type= "elliptical_button">Save</button>
+                </div>
+            </div>
+        </div>
+        <!-- The modal page end -->
     </div>
 </body>
 </html>
