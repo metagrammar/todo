@@ -5,6 +5,10 @@
 *
 * */
 const todoDataBase = [];
+const uuid = 0;
+
+const fetchTodos = localStorage.getItem('todo_items');
+
 
 
 /*
@@ -50,5 +54,4 @@ todoDataBase.pop();
 
 console.log('log after delete --------------');
 console.log(todoDataBase.map(todoObject => todoObject.todoTaskTitle));
-
 
