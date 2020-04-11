@@ -5,6 +5,10 @@
 *
 * */
 const todoDataBase = [];
+const uuid = 0;
+
+const fetchTodos = localStorage.getItem('todo_items');
+
 
 
 /*
