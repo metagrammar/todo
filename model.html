@@ -1,19 +1,49 @@
-<div class= "model_box">
-    <div class= "model_header_button">
-        <button type="xbutton">X</button>
-    </div>
-    <div class= "model_content">
-        <div class= "model_content_header">Do me</div>
-        <div class= "model_content_box"> 
-            <p></p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>to do list</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Google Icons-->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+
+     <!-- Reset stylesheet -->
+     <link rel="stylesheet" type="text/css" href="src/reset.css">
+
+     <!-- Custom stylesheet -->
+     <link rel="stylesheet" type="text/css" href="src/styles.css">
+</head>
+<body>
+    <div class="modal-container">
+        <div class= "model_box">
+            <div class= "model_header">
+                <button class="close-modal" type="xbutton"><span class="material-icons">close</span></button>
+            </div>
+            <div class= "model_content">
+                <form action="">
+                    <div class= "model-content-header"><span>Do</span> / me</div>
+                    <div class= "model-content-box"> 
+                        <textarea placeholder="What would you like to do?" maxlength="120" cols="30" rows="5"></textarea>
+                        <label>Max. 120 characters</label>
+                    </div>
+                    <div class= "model-content-header"><span>Do</span> / me by?</div>
+                    <div class= "due_date_ticker">
+                        <input type="date" id="todoDate" name="todo-date" value="yyyy-mm-dd" min="2020-04-14">
+                        <input type="time" id="todoTime" name="todo-time" value="00:00" >
+                    </div>
+                </form>
+            </div>
+            <div class= "model_footer">
+                <div class= "model_footer_buttons">
+                    <button class="todo todo-delete" type= "submit">Delete</button>
+                    <button class="todo todo-save" type= "submit">Save</button>
+                </div>
+            </div>
         </div>
-        <div class= "model_content_header">Do me by?</div>
-        <div class= "due_date_ticker"></div>
     </div>
-    <div class= "model_footer">
-        <div class= "model_footer_buttons">
-            <button type= "elliptical_button">Delete</button>
-            <button type= "elliptical_button">Save</button>
-        </div>
-    </div>
-</div>
+</body>
+</html>
