@@ -13,7 +13,7 @@ console.log(modalPage);
 addTodoBtn.addEventListener('click', showModal);
 
 function showModal(){
-    alert('Modal page eventhandler works!');
+    // alert('Modal page eventhandler works!');
     modalPage[0].style.display = "grid";
     event.preventDefault()
 }

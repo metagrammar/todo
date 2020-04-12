@@ -1,9 +1,25 @@
 const todoWrapper = document.querySelector('.content-wrapper');
-console.log(todoWrapper);
+// console.log(todoWrapper);
 const addTodoButton = document.querySelector('.add-todo');
-console.log(addTodoButton);
-const checkCircle = document.getElementsByTagName('input');
-console.log(checkCircle);
+// console.log(addTodoButton);
+// const checkCircle = document.querySelector('span');
+// console.log(checkCircle);
+
+const todo = document.querySelector('.content-wrapper');
+console.log(todo);
+
+const todoText = document.querySelector('textarea');
+// console.log(todoText);
+const todoDeadline = document.querySelector('.due_date_ticker').children;
+// console.log(todoDeadline);
+const todoDate = todoDeadline[0];
+const todoTime = todoDeadline[1];
+// console.log(todoDate);
+// console.log(todoTime);
+const deleteBtn = document.querySelector('.todo-delete');
+const saveBtn = document.querySelector('.todo-save');
+const deadline = document.querySelector('.todo-time');
+// console.log(deadline);
 
 
 /*
@@ -12,10 +28,11 @@ console.log(checkCircle);
 *
 *
 * */
-const todoDataBase = [];
-const uuid = 0;
+let todoDataBase = [];
+let uuid = 0;
 
-const fetchTodos = localStorage.getItem('todo_items');
+const fetchedTodos = localStorage.getItem('todo_items');
+
 
 // CSS class names to mutate
 const doneTodo = 'toggle';
@@ -23,74 +40,154 @@ const openTodo = '';
 const strikeTodo = 'todo-done';
 
 /*
-* The createTodoItem creates an todoItem
+* The createTodoItem creates an todoItem which is called when user clicks on save button in modal
 * taskState: Boolean
 *   - true: done
 *   - false: open task
 *
 * */
-const createTodoItem = (todoTaskTitle, taskState) => {
+const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => {
 
-    const isTodoDone = taskState ? doneTodo : openTodo;
-    const isStrike = taskState ? strikeTodo : openTodo;
+    const isTodoDone = isDone ? doneTodo : openTodo;
+    const isStrike = isDone ? strikeTodo : openTodo;
+    // const isDoneSetGrey = isDone ? grey : openTodo;
 
     // todo: Dummy Date
-    const today = new Date();
-    const timeConfig = {weekday: 'long', month: 'long', day: 'numeric'};
+    const dateConfig = {weekday: 'long', month: 'long', day: 'numeric'};
+    const doneDeadlineDate = new Date(doUntilDate).toLocaleDateString('en-US', dateConfig);
 
+
+    //doUntilDate.toLocaleDateString('en-US', dateConfig);
 
     const todoItem = `
-                    <div class="todo-box">
+                    <div class="todo-box ${isStrike}" id="${id}">
                         <div class="todo-time">
                             <span class="material-icons">alarm</span>
-                            ${today.toLocaleDateString('de-DE', timeConfig)}
+                                ${doneDeadlineDate}
                         </div>
                         <label class="checkbox-container">
-                            <div class="${isStrike} todo-text">
+                            <div class="todo-text">
                                 ${todoTaskTitle}
                             </div> 
-                            <input type="checkbox">
-                            <span class="${isTodoDone} checkmark" ></span>
+                            <input type="checkbox" id="${id}">
+                            <span class="${isTodoDone} checkmark"></span>
                         </label>
                     </div>
     `;
 
     todoWrapper.insertAdjacentHTML('beforeend', todoItem);
+    // todoDataBase.push(todoItem)
 
 };
+
 
 /*
 * The C in CRUD
 * Some dummy data to show the functionality.
 * */
 
-const todoItem1 = createTodoItem('Haircut', true);
-const todoItem2 = createTodoItem('Shopping', false);
-const todoItem3 = createTodoItem('Study JS', false);
-const todoItem4 = createTodoItem('Meeting', true);
-
-// const todoItem1 = createTodoItem('Haircut', null, false, '#f44336');
-// const todoItem2 = createTodoItem('Shopping', null, false, '#7b1fa2');
-// const todoItem3 = createTodoItem('Study JS', null, false, '#1565c0');
-// const todoItem4 = createTodoItem('Meeting', null, false, '#00695c');
-// const todoItem5 = createTodoItem('asdfsadf', null, false, '#76ff03');
-
-// Storing data in naive DB
-
+const todoItem1 = createTodoItem(7, 'Haircut', true, new Date(), new Date());
+// const todoItem2 = createTodoItem(8, 'Shopping', false, new Date(), new Date());
+// const todoItem3 = createTodoItem(9, 'Study JS', false, new Date(), new Date());
+// const todoItem4 = createTodoItem(5, 'Meeting', true, new Date(), new Date());
+//
+//
+// // Storing data in naive DB
 todoDataBase.push(todoItem1);
-todoDataBase.push(todoItem2);
-todoDataBase.push(todoItem3);
-todoDataBase.push(todoItem4);
-todoDataBase.push(todoItem5);
-
-console.log(todoDataBase.map(todoObject => todoObject));
-console.log("printing just the task title -----------------------");
-console.log(todoDataBase.map(todoObject => todoObject.todoTaskTitle));
+// todoDataBase.push(todoItem2);
+// todoDataBase.push(todoItem3);
+// todoDataBase.push(todoItem4);
 
 
-todoDataBase.pop();
+//Fails because i store html
+const loadState = (db) => {
+    // db.map(todoItem =>
+    //     createTodoItem(todoItem.uuid, todoItem.task, todoItem.isDone, todoItem.doUntilDate, todoItem.doUntilTime));
+    db.forEach(item => createTodoItem(item.id, item.task, item.isDone, item.doUntilDate, item.doUntilTime))
+};
 
-console.log('log after delete --------------');
-console.log(todoDataBase.map(todoObject => todoObject.todoTaskTitle));
+if (fetchedTodos) {
+    todoDataBase = JSON.parse(fetchedTodos);
+    uuid = todoDataBase.length;
+    loadState(todoDataBase);
+} else {
+    todoDataBase = [];
+    uuid = 0;
+}
+
+const saveTodoItem = () => {
+    const todoTextContent = todoText.value;
+    const todoUntilDate = todoDate.value;
+    const todoUntilTime = todoTime.value;
+
+    createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
+    console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
+    console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
+
+    todoDataBase.push({
+        id: uuid,
+        task: todoTextContent,
+        isDone: false,
+        doUntilDate: todoUntilDate,
+        doUntilTime: todoUntilTime
+    });
+
+    localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
+
+    uuid++;
+
+    todoText.value = '';
+    todoDate.value = '';
+    todoTime.value = '';
+};
+
+const toggleTodoTask = (todoItem) => {
+
+    // if (todoItem.id === true) {
+    console.log(todoItem.classList);
+    // todoItem.classList.toggle(strikeTodo);
+    console.log('asdf');
+    const circleElement = todoItem.querySelectorAll('span');
+    console.log(circleElement[1]);
 
 
+    const todoState = todoDataBase[todoItem.id].isDone;
+    if (todoState === false) {
+
+        todoItem.classList.remove('todo-done');
+        circleElement[1].classList.remove('toggle');
+        todoDataBase[todoItem.id].isDone = true;
+        // localStorage.setItem('todo_item', JSON.stringify(todoDataBase));
+    } else {
+        todoItem.classList.add('todo-done');
+        circleElement[1].classList.add('toggle');
+        todoDataBase[todoItem.id].isDone = false;
+    }
+
+    localStorage.setItem('todo_item', JSON.stringify(todoDataBase));
+
+    console.log(todoState);
+
+
+    // console.log('state2: ' + todoItem.id);
+
+    // todoDataBase[todoItem.id].isDone ;
+    // console.log(state);
+    // const isDone = state.isDone;
+    // const isTodoDone = state ? doneTodo : openTodo;
+    // const isStrike = state ? strikeTodo : openTodo;
+
+}
+
+
+saveBtn.addEventListener('click', saveTodoItem);
+
+todo.addEventListener('click', event => {
+    // const circle = event.target;
+    const circle = event.target.closest('div');
+    console.log(circle);
+
+
+    toggleTodoTask(circle);
+    // localStorage.setItem('todo_item', JSON.stringify(todoDataBase));
+});
