@@ -118,10 +118,7 @@ a.add-todo span.material-icons {
     padding-top: 1.5em;
 }
 
-/* Grid row for the todos that are done  */
-.todo-done {
-    /*padding-top: 3em;*/
-}
+
 
 /* Todo box  */
 
@@ -157,6 +154,11 @@ a.add-todo span.material-icons {
     line-height: 1.2em;
 }
 
+/* Grid row for the todos that are done  */
+.todo-done {
+    padding: 2em auto;
+}
+
 /* Differenciated styles for the todo boxes that are done take the .todo-done class their own class  */
 
 .todo-done .todo-box {
@@ -164,7 +166,7 @@ a.add-todo span.material-icons {
     border: 1px solid #d1d1d1;
 }
 
-.todo-done.todo-text {
+.todo-done .todo-text {
     text-decoration: line-through;
 }
 
@@ -228,7 +230,7 @@ a.add-todo span.material-icons {
 
 /* Modal page styles */
 .modal-container{
-    display: grid;
+    display: none;
     grid-template-columns: 1fr minmax(280px, 500px) 1fr;
     grid-template-rows: repeat(3, 1fr);
     grid-gap: 0px;
