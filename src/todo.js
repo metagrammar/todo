@@ -11,7 +11,11 @@ const todoDeadline = document.querySelector('.due_date_ticker').children;
 const todoDate = todoDeadline[0];
 const todoTime = todoDeadline[1];
 const deleteBtn = document.querySelector('.todo-delete');
+console.log('deleteBtn');
+console.log(deleteBtn);
 const saveBtn = document.querySelector('.todo-save');
+console.log('saveBtn');
+console.log(saveBtn);
 const deadline = document.querySelector('.todo-time');
 
 
