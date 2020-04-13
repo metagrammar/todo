@@ -212,6 +212,13 @@ a.add-todo span.material-icons {
     border: 1px solid #d1d1d1;
 }
 
+/*Dublicate for an easier implementation of todos: Descendant to clas class*/
+
+.todo-done.todo-box {
+    background-color: #e3e3e3;
+    border: 1px solid #d1d1d1;
+}
+
 .todo-done .todo-text {
     text-decoration: line-through;
 }
