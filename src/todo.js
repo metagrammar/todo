@@ -41,7 +41,6 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
     const dateConfig = {weekday: 'long', month: 'long', day: 'numeric'};
     const doneDeadlineDate = new Date(doUntilDate).toLocaleDateString('en-US', dateConfig);
 
-
     //doUntilDate.toLocaleDateString('en-US', dateConfig);
 
     const todoItem = `
@@ -49,6 +48,7 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
                         <div class="todo-time">
                             <span class="material-icons">alarm</span>
                                 ${doneDeadlineDate}
+                            <span class="material-icons trash-icon" id="${id}">delete</span> Delete
                         </div>
                         <label class="checkbox-container">
                             <div class="todo-text">
@@ -120,7 +120,6 @@ const toggleTodoTask = (todoItem) => {
 };
 
 
-
 [...allCheckBoxContainer].forEach(inputTag => inputTag.nextSibling.nextSibling.addEventListener('click', event => {
     console.log('element that clicked');
     console.log(event.currentTarget);
@@ -130,6 +129,28 @@ const toggleTodoTask = (todoItem) => {
     console.log(circle);
     toggleTodoTask(circle);
     localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
+}));
+
+const deleteTodo = (id) => {
+    console.log(todoDataBase.map(item => item.id));
+    const newDB = todoDataBase.filter(item => item.id != id);
+    todoDataBase = newDB;
+    // let db = todoDataBase.filter(item => item.id !== id);
+    localStorage.setItem('todo_items', JSON.stringify(newDB));
+    location.reload();
+    return false;
+};
+
+
+
+const deleteIcons = document.querySelectorAll('.trash-icon');
+console.log(deleteIcons);
+
+[...deleteIcons].forEach(trashItem => trashItem.addEventListener('click', event => {
+    const trash = event.currentTarget;
+    console.log(trash);
+    console.log(trash.id);
+    deleteTodo(trash.id);
 }));
 
 saveBtn.addEventListener('click', saveTodoItem);
