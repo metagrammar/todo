@@ -111,26 +111,13 @@ const saveTodoItem = () => {
 };
 
 const toggleTodoTask = (todoItem) => {
-    console.log('in toggleTodoTask');
-    console.log(todoItem.nextSibling.nextSibling);
 
-    const todoState = todoDataBase[todoItem.id].isDone;
-    console.log('todoState');
-    console.log(todoState);
     const todoItemWrapper = todoItem.parentNode.parentNode;
-    console.log(todoItemWrapper);
-    if (todoState === false) {
-        todoDataBase[todoItem.id].isDone = true;
 
-        // localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
-        todoItemWrapper.classList.remove('todo-done');
-        todoItem.classList.remove('toggle');
-        // localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
-    } else {
-        todoDataBase[todoItem.id].isDone = false;
-        todoItemWrapper.classList.add('todo-done');
-        todoItem.classList.add('toggle');
-    }
+    todoItemWrapper.classList.toggle('todo-done');
+    todoItem.classList.toggle('toggle');
+
+    todoDataBase[todoItem.id].isDone = !todoDataBase[todoItem.id].isDone;
 };
 
 saveBtn.addEventListener('click', saveTodoItem);
@@ -145,5 +132,3 @@ saveBtn.addEventListener('click', saveTodoItem);
     toggleTodoTask(circle);
     localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 }));
-
-
