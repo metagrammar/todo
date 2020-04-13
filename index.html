@@ -16,15 +16,22 @@
 	<link rel="stylesheet" type="text/css" href="src/reset.css">
 
 	<!-- Custom stylesheet -->
-	<link rel="stylesheet" type="text/css" href="src/styles.css">
-    <script src="src/todo.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="src/styles.css">
+    
+    <!-- <script src="src/todo.js" defer></script> -->
     <script src="src/tony.js" defer></script>
+    <script src="src/bkgColor.js" defer></script>
 </head>
 <body>
     <div class="navigation">
+        <!-- <div class="navbar-left"></div> -->
         <div class="navbar">
+            
            <h1><span>do</span> / me</h1>
             <a href="#" class="add-todo" id="newTodo" ><span class="material-icons">add</span></a>
+        </div>
+        <div class="navbar-right">
+            <div class="settingsBtn" id="colorSettings"><span class="material-icons">palette</span></div>
         </div>
     </div>
     <div class="parent">
@@ -32,66 +39,66 @@
         <div class="content">
             <div class="content-gridder">
                 <div class="content-wrapper">
-<!--                    <div class="todo-box">-->
-<!--                        <div class="todo-time">-->
-<!--                            <span class="material-icons">alarm</span>12:00h-->
-<!--                        </div>-->
-<!--                        <label class="checkbox-container">-->
-<!--                            <div class="todo-text">-->
-<!--                                Text that the user inputs for the to do. Maybe text should be set to a maximum of 140 characters. For example this text has 139 characters.-->
-<!--                            </div> -->
-<!--                            <input type="checkbox">-->
-<!--                            <span class="checkmark"></span>-->
-<!--                        </label>-->
-<!--                    </div>-->
+                    <div class="todo-box">
+                        <div class="todo-time">
+                            <span class="material-icons">alarm</span>12:00h
+                        </div>
+                        <label class="checkbox-container">
+                            <div class="todo-text">
+                                Text that the user inputs for the to do. Maybe text should be set to a maximum of 140 characters. For example this text has 139 characters.
+                            </div> 
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
-<!--	<div class="content">-->
-<!--		<div class="content-gridder">-->
-<!--			<div class="content-wrapper todo-done">-->
-<!--				<div class="todo-box">-->
-<!--					<div class="todo-time">-->
-<!--						<span class="material-icons">alarm</span>12:00h-->
-<!--					</div>-->
-<!--					<label class="checkbox-container">-->
-<!--						<div class="todo-text">-->
-<!--							Text that the user inputs for the to do. Maybe text should be set to a maximum of 140-->
-<!--							characters. For example this text has 139 characters.-->
-<!--						</div>-->
-<!--						<input type="checkbox">-->
-<!--						<span class="checkmark"></span>-->
-<!--					</label>-->
-<!--				</div>-->
+        <div class="content">
+            <div class="content-gridder">
+                <div class="content-wrapper todo-done">
+                    <div class="todo-box">
+                        <div class="todo-time">
+                            <span class="material-icons">alarm</span>12:00h
+                        </div>
+                        <label class="checkbox-container">
+                            <div class="todo-text">
+                                Text that the user inputs for the to do. Maybe text should be set to a maximum of 140
+                                characters. For example this text has 139 characters.
+                            </div>
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
 
-<!--				<div class="todo-box">-->
-<!--					<div class="todo-time">-->
-<!--						<span class="material-icons">alarm</span>14:45h-->
-<!--					</div>-->
-<!--					<label class="checkbox-container">-->
-<!--						<div class="todo-text">-->
-<!--							Text that the user inputs for the to do. For example this text has 81 characters.-->
-<!--						</div>-->
-<!--						<input type="checkbox">-->
-<!--						<span class="checkmark"></span>-->
-<!--					</label>-->
-<!--				</div>-->
+                    <div class="todo-box">
+                        <div class="todo-time">
+                            <span class="material-icons">alarm</span>14:45h
+                        </div>
+                        <label class="checkbox-container">
+                            <div class="todo-text">
+                                Text that the user inputs for the to do. For example this text has 81 characters.
+                            </div>
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
 
-<!--				<div class="todo-box">-->
-<!--					<div class="todo-time">-->
-<!--						<span class="material-icons">alarm</span>18:15h-->
-<!--					</div>-->
-<!--					<label class="checkbox-container">-->
-<!--						<div class="todo-text">-->
-<!--							Wash the dog.-->
-<!--						</div>-->
-<!--						<input type="checkbox">-->
-<!--						<span class="checkmark"></span>-->
-<!--					</label>-->
-<!--				</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+                    <div class="todo-box">
+                        <div class="todo-time">
+                            <span class="material-icons">alarm</span>18:15h
+                        </div>
+                        <label class="checkbox-container">
+                            <div class="todo-text">
+                                Wash the dog.
+                            </div>
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="footer"></div>
 
         <!-- The modal page for creating, editing and deleting the todos -->
@@ -109,8 +116,8 @@
                         </div>
                         <div class= "model-content-header"><span>Do</span> / me by?</div>
                         <div class= "due_date_ticker">
-                            <input type="date" id="todoDate" name="todo-date" value="yyyy-mm-dd" min="2020-04-14">
-                            <input type="time" id="todoTime" name="todo-time" value="00:00" >
+                            <input type="date" id="todoDate" name="todo-date" value="yyyy-MM-dd" min="2020-04-14">
+                            <input type="time" id="todoTime" name="todo-time" value="00:00" step="900">
                         </div>
                     </form>
                 </div>
@@ -122,7 +129,46 @@
                 </div>
             </div>
         </div>
-        <!-- The modal page end -->
+        <!-- The modal page for CED END -->
+
+        <!-- The background colour modal page -->
+        <div class="modal-container-bkg-color">
+            <div class= "model_box">
+                <div class= "model_header">
+                    <button class="close-modal" id="closeBkgColorModal" type="button"><span class="material-icons">close</span></button>
+                </div>
+                <div class= "model_content">
+                    <div class= "model-content-header"><span>Make</span> / me yours</div>
+                    <div class= "model-content-box"> 
+                        <p>You can personalise your <span><strong>Do</strong> / me</span> interface. 
+                                To change the header and / or background colour, click on the corresponding parts in the diagram below 
+                                and then choose the colours you would like</p>
+                    </div>
+                    <div class="centerElement">
+                        <div class="colorSampler">
+                            <div class="headerColor">Make me yours</div>
+                            <div class="bodyColor">or me yours</div>
+                        </div>
+                    </div>
+                </div>
+                <div class= "model_footer">
+                    <div class="headColorOptions colorBtns">
+                        <p>Select a colour for the header</p><br>
+                        <div class="colorBox gradDefault"></div>
+                        <div class="colorBox gradBlue"></div>
+                        <div class="colorBox gradGreen"></div>
+                    </div>
+
+                    <div class="bodyColorOptions colorBtns">
+                        <p>Select a colour for the body</p><br>
+                        <div class="colorBox bodyDefault"></div>
+                        <div class="colorBox bodyDark"></div>
+                        <div class="colorBox bodyGreen"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- The background colour modal page END -->
     </div>
 </body>
 </html>
