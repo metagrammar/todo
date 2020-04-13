@@ -70,6 +70,7 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
     // todoWrapper.insertAdjacentHTML('beforeend', todoItem);
     // todoDataBase.push(todoItem)
 
+    localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 };
 
 //Fails because i store html
@@ -94,8 +95,8 @@ const saveTodoItem = () => {
     const todoUntilTime = todoTime.value;
 
     createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
-    console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
-    console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
+    // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
+    // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
 
     todoDataBase.push({
         id: uuid,
@@ -124,7 +125,6 @@ const toggleTodoTask = (todoItem) => {
     todoDataBase[todoItem.id].isDone = !todoDataBase[todoItem.id].isDone;
 };
 
-saveBtn.addEventListener('click', saveTodoItem);
 
 [...allCheckBoxContainer].forEach(inputTag => inputTag.nextSibling.nextSibling.addEventListener('click', event => {
     console.log('element that clicked');
@@ -136,3 +136,6 @@ saveBtn.addEventListener('click', saveTodoItem);
     toggleTodoTask(circle);
     localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 }));
+
+saveBtn.addEventListener('click', saveTodoItem);
+
