@@ -5,8 +5,12 @@
 html {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
+}
+
+body {
     background-color: #f5f5f5;
 }
+
 
 /* Removes the blue line around these items */
 textarea, input, button {
@@ -15,7 +19,8 @@ textarea, input, button {
 
 /* Navigation bar */
 .navigation {
-    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    grid-template-columns: 1fr minmax(280px, 1170px) 1fr;
     grid-template-rows: 1fr;
     grid-gap: 0px;
     height: 5em;
@@ -29,14 +34,27 @@ textarea, input, button {
     z-index: 1;
 }
 
+.navbar-left {
+    display: grid;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    height: 5em;
+}
+
+.navbar-right {
+    display: grid;
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+}
+
 .navbar {
     display: grid;
     grid-column: 2 / 3;
+    grid-row: 1 / 2;
     grid-gap: 0px;
-    max-width: 1170px;
     height: 5em;
     padding: 0;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     justify-items: end;
 }
 
@@ -49,6 +67,7 @@ textarea, input, button {
     align-self: center;
     justify-self: center;
     margin-top: 30px;
+    text-align:center;
 }
 
 .navbar h1 span, .model-content-header span {
@@ -56,13 +75,24 @@ textarea, input, button {
 }
 
 .settingsBtn {
-    position: fixed;
-    right: 5em;
-    top: 1em;
+    display: grid;
+    margin-top: 0.5em;
     width: 2em;
     height: 2em;
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
+    justify-items: center;
+    align-items: center;
+}
+
+.settingsBtn:hover {
+    color: rgba(255, 255, 255, 1.7);
+    transform: scale(1.2);
+    transition: ease-in 300ms;
+}
+
+.settingsBtn .material-icons {
+    font-size: 1.25rem;
 }
 
 a.add-todo {
@@ -73,7 +103,7 @@ a.add-todo {
     box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.1);
     height: 50px;
     width: 50px;
-    margin-right: 2em;
+    /* margin-right: 2em; */
     border-radius: 50%;
     justify-items: center;
     text-decoration: none;
@@ -416,6 +446,10 @@ button.todo-save{
   
   .headColorOptions {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
 
   .bodyColorOptions {
@@ -444,10 +478,11 @@ button.todo-save{
     border-radius: 50%;
     margin-right:2em;
     box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
   }
   
   .colorBox:hover {
-    border: 5px solid #333;
+    border: 5px solid #ffffff;
     transform: scale(1.1);
     transition: ease-in 200ms;
   }
