@@ -8,6 +8,11 @@ html {
     background-color: #f5f5f5;
 }
 
+/* Removes the blue line around these items */
+textarea, input, button {
+    outline: none;
+}
+
 /* Navigation bar */
 .navigation {
     grid-template-columns: repeat(3, 1fr);
@@ -18,8 +23,9 @@ html {
     margin-top: 0;
     position: fixed;
     top: 0;
-    background: transparent linear-gradient(90deg, #C471ED 0%, #F64F59 100%) 0% 0% no-repeat padding-box;
-    opacity: 1;
+    background: #C471ED;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #C471ED, #F64F59); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #C471ED, #F64F59); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     z-index: 1;
 }
 
@@ -47,6 +53,16 @@ html {
 
 .navbar h1 span, .model-content-header span {
     font-weight: 700;
+}
+
+.settingsBtn {
+    position: fixed;
+    right: 5em;
+    top: 1em;
+    width: 2em;
+    height: 2em;
+    color: #ffffff;
+    cursor: pointer;
 }
 
 a.add-todo {
@@ -229,7 +245,9 @@ a.add-todo span.material-icons {
 }
 
 /* Modal page styles */
-.modal-container{
+
+
+.modal-container, .modal-container-bkg-color{
     display: none;
     grid-template-columns: 1fr minmax(280px, 500px) 1fr;
     grid-template-rows: repeat(3, 1fr);
@@ -250,7 +268,7 @@ a.add-todo span.material-icons {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     grid-gap: 0px;
-    grid-template-rows: 40px 1fr 80px;
+   /*  grid-template-rows: 40px 1fr 1fr; */
     width: 100%;
     min-height: 460px;
     margin: auto;
@@ -290,7 +308,6 @@ button.close-modal{
 }
 
 textarea {
-    outline: none;
     border: 1px solid #D1D1D1;
     background-color: #ffffff;
     width: 100%;
@@ -300,12 +317,12 @@ textarea {
 }
 
 input[type=date], input[type=time] {
-    outline: none;
     margin-right: 1em;
     height: 3em;
     padding-left: 1em;
     font-size:1rem;
     color: #adadad;
+    font-family: 'Montserrat', sans-serif;
 }
 
 textarea::placeholder {
@@ -316,6 +333,7 @@ textarea::placeholder {
 .model_footer {
     justify-self: center;
     align-self: end;
+    margin-top: 1em;
 }
 
 button.todo {
@@ -323,7 +341,6 @@ button.todo {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     color: #ffffff;
-    outline: none;
     width: 100px;
     height: 40px;
     border-radius: 20px;
@@ -338,4 +355,134 @@ button.todo-delete{
 
 button.todo-save{
     background-color: #62D067;
+}
+
+
+/* Make me yours overlay styles */
+.modal-container-bkg-color p{
+    color: #999999;
+    font-size: 0.875rem;
+    line-height: 1.5em;
+}
+
+.modal-container-bkg-color .model-content-box {
+    margin: 1em 0;
+}
+
+.model-content-box p span{
+    text-transform: uppercase;
+}
+.centerElement {
+    display: flex;
+    justify-content: center;
+}
+
+.colorSampler {
+    text-align:center;
+    position: relative;
+    width: 10em;
+    height: 10em;
+    border-radius: 10%;
+    overflow: hidden;
+    border: 5px solid #ffffff;
+    margin-bottom: 1em;
+    background-color: #ffffff;
+  }
+  
+  .headerColor, .bodyColor {
+    position: absolute;
+    width: 100%;
+    font-size: 0.75rem;
+    cursor: pointer;
+  }
+
+  .headerColor {
+    left: 0;
+    top: 0;
+    height: 30%;
+    padding-top: 1em;
+    color: rgba(255, 255, 255, 0.5);
+    background: linear-gradient(90deg, #C471ED 0%, #F64F59 100%);
+  }
+  
+  .bodyColor {
+    right: 0;
+    bottom: 0;
+    height: 65%;
+    padding-top: 3em;
+    color: rgba(0,0,0,0.5);
+    background-color: #f5f5f5;
+  }
+  
+  .headColorOptions {
+    display: flex;
+  }
+
+  .bodyColorOptions {
+    display: none;
+  }
+
+  .headColorOptions, .bodyColorOptions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5em auto;
+  }
+
+.headColorOptions p, .bodyColorOptions p{
+    text-align: center;
+    width: 100%;
+    margin-bottom:0.5em;
+    text-transform: uppercase;
+  }
+  
+  .colorBox {
+    width: 3em;
+    height: 3em;
+    border: 1px solid #D1D1D1;
+    border-radius: 50%;
+    margin-right:2em;
+    box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .colorBox:hover {
+    border: 5px solid #333;
+    transform: scale(1.1);
+    transition: ease-in 200ms;
+  }
+  
+  .activeColor {
+    border: 5px solid #ffffff;
+  }
+  
+  .gradDefault {
+    background: #373B44;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #C471ED, #F64F59); 
+    background: linear-gradient(to right, #C471ED, #F64F59);
+  }
+  
+  .gradBlue {
+    background: #373B44;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4286f4, #373B44); 
+    background: linear-gradient(to right, #4286f4, #373B44);
+  }
+  
+  .gradGreen {
+    background: #11998e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+    background: linear-gradient(to right, #38ef7d, #11998e);
+  }
+
+
+.bodyDefault {
+    background: #f5f5f5;
+}
+
+.bodyDark {
+    background: #373B44;
+}
+
+.bodyGreen {
+    background: #11998e;
 }
