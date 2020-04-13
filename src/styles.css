@@ -194,6 +194,11 @@ a.add-todo span.material-icons {
     vertical-align: text-bottom;
 }
 
+.trash-icon {
+    padding-left: 5vh;
+}
+
+
 .todo-text {
     font-size: 1rem;
     color: #666666;

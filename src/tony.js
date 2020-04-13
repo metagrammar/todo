@@ -26,4 +26,8 @@ function hideModal(){
     /* alert('Close modal page eventhandler works!'); */
     modalPage.style.display = "none";
     event.preventDefault()
+
+    //refreshing after an onclick
+    location.reload();
+    return false;
 }

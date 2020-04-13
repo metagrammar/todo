@@ -11,13 +11,7 @@ const todoDeadline = document.querySelector('.due_date_ticker').children;
 const todoDate = todoDeadline[0];
 const todoTime = todoDeadline[1];
 const deleteBtn = document.querySelector('.todo-delete');
-console.log('deleteBtn');
-console.log(deleteBtn);
 const saveBtn = document.querySelector('.todo-save');
-console.log('saveBtn');
-console.log(saveBtn);
-const deadline = document.querySelector('.todo-time');
-
 
 let todoDataBase = [];
 let uuid = 0;
@@ -47,7 +41,6 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
     const dateConfig = {weekday: 'long', month: 'long', day: 'numeric'};
     const doneDeadlineDate = new Date(doUntilDate).toLocaleDateString('en-US', dateConfig);
 
-
     //doUntilDate.toLocaleDateString('en-US', dateConfig);
 
     const todoItem = `
@@ -55,6 +48,7 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
                         <div class="todo-time">
                             <span class="material-icons">alarm</span>
                                 ${doneDeadlineDate}
+                            <span class="material-icons trash-icon" id="${id}">delete</span> Delete
                         </div>
                         <label class="checkbox-container">
                             <div class="todo-text">
@@ -70,6 +64,7 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
     // todoWrapper.insertAdjacentHTML('beforeend', todoItem);
     // todoDataBase.push(todoItem)
 
+    localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 };
 
 //Fails because i store html
@@ -94,8 +89,8 @@ const saveTodoItem = () => {
     const todoUntilTime = todoTime.value;
 
     createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
-    console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
-    console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
+    // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
+    // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
 
     todoDataBase.push({
         id: uuid,
@@ -124,7 +119,6 @@ const toggleTodoTask = (todoItem) => {
     todoDataBase[todoItem.id].isDone = !todoDataBase[todoItem.id].isDone;
 };
 
-saveBtn.addEventListener('click', saveTodoItem);
 
 [...allCheckBoxContainer].forEach(inputTag => inputTag.nextSibling.nextSibling.addEventListener('click', event => {
     console.log('element that clicked');
@@ -136,3 +130,28 @@ saveBtn.addEventListener('click', saveTodoItem);
     toggleTodoTask(circle);
     localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 }));
+
+const deleteTodo = (id) => {
+    console.log(todoDataBase.map(item => item.id));
+    const newDB = todoDataBase.filter(item => item.id != id);
+    todoDataBase = newDB;
+    // let db = todoDataBase.filter(item => item.id !== id);
+    localStorage.setItem('todo_items', JSON.stringify(newDB));
+    location.reload();
+    return false;
+};
+
+
+
+const deleteIcons = document.querySelectorAll('.trash-icon');
+console.log(deleteIcons);
+
+[...deleteIcons].forEach(trashItem => trashItem.addEventListener('click', event => {
+    const trash = event.currentTarget;
+    console.log(trash);
+    console.log(trash.id);
+    deleteTodo(trash.id);
+}));
+
+saveBtn.addEventListener('click', saveTodoItem);
+
