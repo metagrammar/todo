@@ -5,6 +5,7 @@
 # IntelliJ project files
 .idea
 *.iml
+.DS_Store
 out
 gen
 Würde .idea/.gitignore löschen
@@ -12,3 +13,4 @@ Würde .idea/misc.xml löschen
 Würde .idea/modules.xml löschen
 Würde .idea/todo.iml löschen
 Würde .idea/vcs.xml löschen
+Würde src/.DS_Store löschen
