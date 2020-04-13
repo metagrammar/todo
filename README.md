@@ -8,3 +8,8 @@ Todo Heinrich
 [x] Complete Css ind createTodoItem
 [x] read data from Modal
 [] Implement loaclStoreage and array
+
+
+[x] pick todo circle
+[] toggle in span toggle class
+[] pick parent.parent div to toggle todo-done class

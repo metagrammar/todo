@@ -1,33 +1,20 @@
 const todoWrapper = document.querySelector('.content-wrapper');
-// console.log(todoWrapper);
+const allCheckBoxContainer =
+    todoWrapper.getElementsByTagName("input");
 const addTodoButton = document.querySelector('.add-todo');
-// console.log(addTodoButton);
-// const checkCircle = document.querySelector('span');
-// console.log(checkCircle);
-
-const todo = document.querySelector('.content-wrapper');
-console.log(todo);
-
+const todoItem = document.querySelector('.todo-box');
+const todoAllSpans = todoWrapper.querySelectorAll('span');
+const todoCheckSpan = todoAllSpans[1];
+const toggleWrapper = document.querySelector('.checkbox-container');
 const todoText = document.querySelector('textarea');
-// console.log(todoText);
 const todoDeadline = document.querySelector('.due_date_ticker').children;
-// console.log(todoDeadline);
 const todoDate = todoDeadline[0];
 const todoTime = todoDeadline[1];
-// console.log(todoDate);
-// console.log(todoTime);
 const deleteBtn = document.querySelector('.todo-delete');
 const saveBtn = document.querySelector('.todo-save');
 const deadline = document.querySelector('.todo-time');
-// console.log(deadline);
 
 
-/*
-* This array todoDataBase stores todoItems
-* const todoDataBase = [{todoItem}. {todoItem}, {todoItem}, {todoItem}];
-*
-*
-* */
 let todoDataBase = [];
 let uuid = 0;
 
@@ -43,7 +30,7 @@ const strikeTodo = 'todo-done';
 * The createTodoItem creates an todoItem which is called when user clicks on save button in modal
 * taskState: Boolean
 *   - true: done
-*   - false: open task
+*   - false: task
 *
 * */
 const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => {
@@ -69,35 +56,17 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
                             <div class="todo-text">
                                 ${todoTaskTitle}
                             </div> 
-                            <input type="checkbox" id="${id}">
-                            <span class="${isTodoDone} checkmark"></span>
+                                <input type="checkbox" id="${id}">
+                                <span class="${isTodoDone} checkmark" id="${id}"></span>
                         </label>
                     </div>
     `;
 
-    todoWrapper.insertAdjacentHTML('beforeend', todoItem);
+    todoWrapper.insertAdjacentHTML('afterbegin', todoItem);
+    // todoWrapper.insertAdjacentHTML('beforeend', todoItem);
     // todoDataBase.push(todoItem)
 
 };
-
-
-/*
-* The C in CRUD
-* Some dummy data to show the functionality.
-* */
-
-const todoItem1 = createTodoItem(7, 'Haircut', true, new Date(), new Date());
-// const todoItem2 = createTodoItem(8, 'Shopping', false, new Date(), new Date());
-// const todoItem3 = createTodoItem(9, 'Study JS', false, new Date(), new Date());
-// const todoItem4 = createTodoItem(5, 'Meeting', true, new Date(), new Date());
-//
-//
-// // Storing data in naive DB
-todoDataBase.push(todoItem1);
-// todoDataBase.push(todoItem2);
-// todoDataBase.push(todoItem3);
-// todoDataBase.push(todoItem4);
-
 
 //Fails because i store html
 const loadState = (db) => {
@@ -142,52 +111,39 @@ const saveTodoItem = () => {
 };
 
 const toggleTodoTask = (todoItem) => {
-
-    // if (todoItem.id === true) {
-    console.log(todoItem.classList);
-    // todoItem.classList.toggle(strikeTodo);
-    console.log('asdf');
-    const circleElement = todoItem.querySelectorAll('span');
-    console.log(circleElement[1]);
-
+    console.log('in toggleTodoTask');
+    console.log(todoItem.nextSibling.nextSibling);
 
     const todoState = todoDataBase[todoItem.id].isDone;
-    if (todoState === false) {
-
-        todoItem.classList.remove('todo-done');
-        circleElement[1].classList.remove('toggle');
-        todoDataBase[todoItem.id].isDone = true;
-        // localStorage.setItem('todo_item', JSON.stringify(todoDataBase));
-    } else {
-        todoItem.classList.add('todo-done');
-        circleElement[1].classList.add('toggle');
-        todoDataBase[todoItem.id].isDone = false;
-    }
-
-    localStorage.setItem('todo_item', JSON.stringify(todoDataBase));
-
+    console.log('todoState');
     console.log(todoState);
+    const todoItemWrapper = todoItem.parentNode.parentNode;
+    console.log(todoItemWrapper);
+    if (todoState === false) {
+        todoDataBase[todoItem.id].isDone = true;
 
-
-    // console.log('state2: ' + todoItem.id);
-
-    // todoDataBase[todoItem.id].isDone ;
-    // console.log(state);
-    // const isDone = state.isDone;
-    // const isTodoDone = state ? doneTodo : openTodo;
-    // const isStrike = state ? strikeTodo : openTodo;
-
-}
-
+        // localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
+        todoItemWrapper.classList.remove('todo-done');
+        todoItem.classList.remove('toggle');
+        // localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
+    } else {
+        todoDataBase[todoItem.id].isDone = false;
+        todoItemWrapper.classList.add('todo-done');
+        todoItem.classList.add('toggle');
+    }
+};
 
 saveBtn.addEventListener('click', saveTodoItem);
 
-todo.addEventListener('click', event => {
+[...allCheckBoxContainer].forEach(inputTag => inputTag.nextSibling.nextSibling.addEventListener('click', event => {
+    console.log('element that clicked');
+    console.log(event.currentTarget);
     // const circle = event.target;
-    const circle = event.target.closest('div');
+    const circle = event.target;
+    console.log('circle');
     console.log(circle);
-
-
     toggleTodoTask(circle);
-    // localStorage.setItem('todo_item', JSON.stringify(todoDataBase));
-});
+    localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
+}));
+
+
