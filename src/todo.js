@@ -23,6 +23,10 @@ const modalDate = modal.querySelector('#todoDate');
 const modalTime = modal.querySelector('#todoTime');
 console.log(modalDate);
 console.log(modalTime);
+const modalBox = document.getElementById('to-update');
+
+console.log('modalBox on top');
+console.log(modalBox);
 
 let todoDataBase = [];
 let uuid = 0;
@@ -50,6 +54,7 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
 
     // console.log('true if not empty');
     // console.log(doUntilDate === true);
+
 
     // todo: Dummy Date
     const dateConfig = {weekday: 'long', month: 'long', day: 'numeric'};
@@ -97,31 +102,76 @@ if (fetchedTodos) {
     uuid = 0;
 }
 
-const saveTodoItem = () => {
-    const todoTextContent = modalTextarea.value;
-    const todoUntilDate = todoDate.value;
-    const todoUntilTime = todoTime.value;
+const saveTodoItem = (id) => {
+
+    //
+    // // Updating todoitem
+    if (id) {
+        const todoContent = todoDataBase.filter(item => id === item.id.toString());
+        // console.log('log the array');
+        // todoDataBase.map(tasks => console.log(tasks));
+        // console.log('log the picked array');
+        // console.log(todoContent[0].task);
+        // console.log(todoContent[0].doUntilDate.toString());
+        // console.log(todoContent[0].doUntilTime.toString());
+        // console.log('modalDate');
+        // console.log(modalDate);
+
+        modalTextarea.textContent = todoContent[0].task;
+        modalDate.setAttribute('value', todoContent[0].doUntilDate); //todo
+        modalTime.setAttribute('value', todoContent[0].doUntilTime.toString()); //todo
 
 
-    createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
-    // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
-    // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
+        const todoTextContent = modalTextarea.value;
+        const todoUntilDate = modalDate.value;
+        const todoUntilTime = modalTime.value;
 
-    todoDataBase.push({
-        id: uuid,
-        task: todoTextContent,
-        isDone: false,
-        doUntilDate: todoUntilDate,
-        doUntilTime: todoUntilTime
-    });
+        todoDataBase[id].task = todoTextContent;
+        todoDataBase[id].doUntilDate = todoUntilDate;
+        todoDataBase[id].doUntilTime = todoUntilTime;
 
-    localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
+        localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 
-    uuid++;
+        hideModal();
 
-    todoText.value = '';
-    todoDate.value = '';
-    todoTime.value = '';
+    } else {
+        const todoTextContent = modalTextarea.value;
+        const todoUntilDate = todoDate.value;
+        const todoUntilTime = todoTime.value;
+
+        if (!todoTextContent) {
+            alert('you failed');
+            // hideModal();
+            return;
+        }
+
+
+        createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
+        // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
+        // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
+
+        todoDataBase.push({
+            id: uuid,
+            task: todoTextContent,
+            isDone: false,
+            doUntilDate: todoUntilDate,
+            doUntilTime: todoUntilTime
+        });
+
+        localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
+
+        uuid++;
+
+        todoText.value = '';
+        todoDate.value = '';
+        todoTime.value = '';
+        hideModal();
+
+        // }
+
+
+        // else
+    }
 };
 
 const toggleTodoTask = (todoItem) => {
@@ -159,7 +209,6 @@ const deleteTodo = (id) => {
     return false;
 };
 
-
 const deleteIcons = document.querySelectorAll('.trash-icon');
 [...deleteIcons].forEach(trashItem => trashItem.addEventListener('click', event => {
     // event.stopPropagation();
@@ -171,13 +220,32 @@ const deleteIcons = document.querySelectorAll('.trash-icon');
 
 // Edit todoitem functionality
 const showFetchedModal = (id) => {
+
+
+    console.log('modalBox');
+    console.log(modalBox);
     showModal();
+    // modalPage.classList = `model-container ${id}`;
+    saveBtn.classList = `todo todo-save ${id}`;
+    console.log('greenbtn');
+    console.log(saveBtn.classList);
+    console.log('modalDate');
+    console.log(modalDate);
+
 
     const todoContent = todoDataBase.filter(item => id === item.id.toString());
+    console.log('log the array');
     todoDataBase.map(tasks => console.log(tasks));
+    console.log('log the picked array');
+    console.log(todoContent[0].task);
+    console.log(todoContent[0].doUntilDate.toString());
+    console.log(todoContent[0].doUntilTime.toString());
+    console.log('modalDate');
+    console.log(modalDate);
+
     modalTextarea.textContent = todoContent[0].task;
-    modalDate.textContent = todoContent[0].doUntilDate;
-    modalTime.textContent = todoContent[0].doUntilTime;
+    modalDate.setAttribute('value', todoContent[0].doUntilDate); //todo
+    modalTime.setAttribute('value', todoContent[0].doUntilTime.toString()); //todo
 
 
     // const todoTextContent = modalTextarea.value;
@@ -190,6 +258,7 @@ const showFetchedModal = (id) => {
     //
     // localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 
+
 };
 
 
@@ -198,9 +267,12 @@ const showFetchedModal = (id) => {
     console.log('clickes on for modal');
     console.log(event.target.id);
     showFetchedModal(event.target.id);
+
 }));
 
-saveBtn.addEventListener('click', saveTodoItem);
-
-console.log('todoItems');
-console.log(todoItems);
+saveBtn.addEventListener('click',event =>{
+    const idBtn = event.currentTarget.classList[2];
+    console.log('idbtn');
+    console.log(idBtn);
+    saveTodoItem(idBtn);
+});
