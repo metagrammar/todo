@@ -88,6 +88,8 @@ const saveTodoItem = () => {
     const todoUntilDate = todoDate.value;
     const todoUntilTime = todoTime.value;
 
+    // Validation
+
     createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
     // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
     // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
@@ -133,7 +135,9 @@ const toggleTodoTask = (todoItem) => {
 
 const deleteTodo = (id) => {
     console.log(todoDataBase.map(item => item.id));
-    const newDB = todoDataBase.filter(item => item.id != id);
+    console.log(typeof id);
+    console.log(typeof todoDataBase[0].id);
+    const newDB = todoDataBase.filter(item => item.id.toString() !== id);
     todoDataBase = newDB;
     // let db = todoDataBase.filter(item => item.id !== id);
     localStorage.setItem('todo_items', JSON.stringify(newDB));
