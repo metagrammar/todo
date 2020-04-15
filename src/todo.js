@@ -3,7 +3,12 @@ const allCheckBoxContainer =
     todoWrapper.getElementsByTagName("input");
 const addTodoButton = document.querySelector('.add-todo');
 
+
 const todoItems = document.getElementsByClassName('todo-box');
+
+const seeTodoDate = document.querySelector ('dateOnOff');
+const seeTodoTime = document.querySelector ('timeOnOff');
+const todoItem = document.querySelector('.todo-box');
 
 const todoAllSpans = todoWrapper.querySelectorAll('span');
 const toggleWrapper = document.querySelector('.checkbox-container');
@@ -32,12 +37,23 @@ let todoDataBase = [];
 let uuid = 0;
 
 const fetchedTodos = localStorage.getItem('todo_items');
+    
+
+console.log ('shows the input with the time and maybe the data');
+console.log (todoDataBase);
 
 
 // CSS class names to mutate
 const doneTodo = 'toggle';
 const openTodo = '';
 const strikeTodo = 'todo-done';
+
+// Tony
+const dateSet = '';
+const dateHidden = 'todo-hide';
+
+const timeSet = '';
+const timeHidden = 'todo-hide';
 
 /*
 * The createTodoItem creates an todoItem which is called when user clicks on save button in modal
@@ -46,10 +62,19 @@ const strikeTodo = 'todo-done';
 *   - false: task
 *
 * */
+
+
+
+
 const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => {
+
+    emptyTextbox(todoTaskTitle);
 
     const isTodoDone = isDone ? doneTodo : openTodo;
     const isStrike = isDone ? strikeTodo : openTodo;
+    // Tony
+    const isDateSet = doUntilDate ? dateSet : dateHidden;
+    const isTimeSet = doUntilTime ? timeSet : timeHidden;
     // const isDoneSetGrey = isDone ? grey : openTodo;
 
     // console.log('true if not empty');
@@ -59,6 +84,8 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
     // todo: Dummy Date
     const dateConfig = {weekday: 'long', month: 'long', day: 'numeric'};
     const doneDeadlineDate = new Date(doUntilDate).toLocaleDateString('en-US', dateConfig);
+    // const doneDeadlineTime = todoTime.value;
+   
 
     //doUntilDate.toLocaleDateString('en-US', dateConfig);
 
@@ -66,8 +93,11 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
                     <div class="todo-box ${isStrike}" id="${id}">
                         <div class="todo-time">
                             <span class="material-icons">alarm</span>
-                                ${doneDeadlineDate}
-                            <span class="material-icons trash-icon" id="${id}">delete</span> Delete
+                            <div class="date-time-cont">
+                                <span class="dateOnOff ${isDateSet}">${doneDeadlineDate} - </span>
+                                <span class="timeOnOff ${isTimeSet}">${doUntilTime}</span>
+                            </div>
+                            <span class="material-icons trash-icon" id="${id}">delete</span>
                         </div>
                         <label class="checkbox-container">
                             <div class="todo-text" id="${id}">
@@ -104,6 +134,7 @@ if (fetchedTodos) {
 
 const saveTodoItem = (id) => {
 
+
     //
     // // Updating todoitem
     if (id) {
@@ -120,6 +151,31 @@ const saveTodoItem = (id) => {
         modalTextarea.textContent = todoContent[0].task;
         modalDate.setAttribute('value', todoContent[0].doUntilDate); //todo
         modalTime.setAttribute('value', todoContent[0].doUntilTime.toString()); //todo
+
+    if(!todoTextContent){
+        alert("Error, your ToDo is empty. Please fill in the box to continue.");
+        return
+    }
+
+    createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
+    // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
+    // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
+  
+    createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
+    // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
+    // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
+    
+    console.log('createTodoItem')
+
+    todoDataBase.push({
+        id: uuid,
+        task: todoTextContent,
+        isDone: false,
+        doUntilDate: todoUntilDate,
+        doUntilTime: todoUntilTime
+
+    });
+
 
 
         const todoTextContent = modalTextarea.value;
@@ -170,9 +226,21 @@ const saveTodoItem = (id) => {
         // }
 
 
+
         // else
     }
+
+    todoText.value = '';
+    todoDate.value = '';
+    todoTime.value = '';
+
+    // Hides the modal page after clicking on the save button
+    hideModal();
+    
+
+
 };
+
 
 const toggleTodoTask = (todoItem) => {
 
@@ -180,6 +248,8 @@ const toggleTodoTask = (todoItem) => {
 
     todoItemWrapper.classList.toggle('todo-done');
     todoItem.classList.toggle('toggle');
+
+    // Tony    seeTodoDate.classList.toggle('todo-hide');
 
     todoDataBase[todoItem.id].isDone = !todoDataBase[todoItem.id].isDone;
 };
@@ -217,6 +287,7 @@ const deleteIcons = document.querySelectorAll('.trash-icon');
     // console.log(trash.id);
     deleteTodo(trash.id);
 }));
+
 
 // Edit todoitem functionality
 const showFetchedModal = (id) => {

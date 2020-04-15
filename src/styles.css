@@ -178,6 +178,9 @@ a.add-todo span.material-icons {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1),
     0 20px 20px rgba(0, 0, 0, 0.05);
 }
+.todo-hide {
+    display: none;
+}
 
 .todo-time {
     font-size: 0.75rem;
@@ -185,17 +188,21 @@ a.add-todo span.material-icons {
     line-height: 1.2em;
     padding-left: 35px;
     margin-bottom: 5px;
+    display: grid;
+    grid-template-columns: 15px 1fr 15px;
+    grid-template-rows: 1fr;
+    column-gap: 0.5em;
 }
 
 .todo-time span {
     font-size: 0.75rem;
     line-height: 1.2em;
-    margin-right: 0.5em;
     vertical-align: text-bottom;
 }
 
 .trash-icon {
-    padding-left: 5vh;
+    cursor:pointer;
+    justify-self: end;
 }
 
 
