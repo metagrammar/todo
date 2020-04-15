@@ -52,6 +52,8 @@ const timeHidden = 'todo-hide';
 
 const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => {
 
+    emptyTextbox(todoTaskTitle);
+
     const isTodoDone = isDone ? doneTodo : openTodo;
     const isStrike = isDone ? strikeTodo : openTodo;
     // Tony
@@ -115,14 +117,19 @@ const saveTodoItem = () => {
     const todoUntilDate = todoDate.value;
     const todoUntilTime = todoTime.value;
 
-    
-    
+    if(!todoTextContent){
+        alert("Error, your ToDo is empty. Please fill in the box to continue.");
+        hideModal();
+        return
+    }
+
     createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
     // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
     // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
-
-
-    emptyTextbox(todoTextContent);
+  
+    createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
+    // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
+    // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
     
     console.log('createTodoItem')
 
@@ -197,14 +204,3 @@ console.log(deleteIcons);
 }));
 
 saveBtn.addEventListener('click', saveTodoItem);
-
-function emptyTextbox(todoTextContent) 
-   {
-     if (!todoTextContent)
-      { 
-         alert("Error, your ToDo is empty. Please fill in the box to continue.");  	
-         return false; 
-      }  	
-      return true; 
-    } 
-
