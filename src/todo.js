@@ -33,6 +33,8 @@ const strikeTodo = 'todo-done';
 * */
 const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => {
 
+    emptyTextbox(todoTaskTitle);
+
     const isTodoDone = isDone ? doneTodo : openTodo;
     const isStrike = isDone ? strikeTodo : openTodo;
     // const isDoneSetGrey = isDone ? grey : openTodo;
@@ -88,11 +90,15 @@ const saveTodoItem = () => {
     const todoUntilDate = todoDate.value;
     const todoUntilTime = todoTime.value;
 
+    if(!todoTextContent){
+        alert("Error, your ToDo is empty. Please fill in the box to continue.");
+        hideModal();
+        return
+    }
+
     createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
     // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
     // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
-
-    emptyTextbox(todoTextContent);
     
     todoDataBase.push({
         id: uuid,
@@ -158,13 +164,3 @@ console.log(deleteIcons);
 }));
 
 saveBtn.addEventListener('click', saveTodoItem);
-
-function emptyTextbox(todoTextContent) 
-   {
-     if (!todoTextContent)
-      { 
-         alert("Error, your ToDo is empty. Please fill in the box to continue.");  	
-         return false; 
-      }  	
-      return true; 
-    } 
