@@ -92,6 +92,8 @@ const saveTodoItem = () => {
     // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
     // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
 
+    emptyTextbox(todoTextContent);
+    
     todoDataBase.push({
         id: uuid,
         task: todoTextContent,
@@ -107,6 +109,8 @@ const saveTodoItem = () => {
     todoText.value = '';
     todoDate.value = '';
     todoTime.value = '';
+
+    hideModal();
 };
 
 const toggleTodoTask = (todoItem) => {
@@ -155,3 +159,12 @@ console.log(deleteIcons);
 
 saveBtn.addEventListener('click', saveTodoItem);
 
+function emptyTextbox(todoTextContent) 
+   {
+     if (!todoTextContent)
+      { 
+         alert("Error, your ToDo is empty. Please fill in the box to continue.");  	
+         return false; 
+      }  	
+      return true; 
+    } 
