@@ -119,7 +119,6 @@ const saveTodoItem = () => {
 
     if(!todoTextContent){
         alert("Error, your ToDo is empty. Please fill in the box to continue.");
-        hideModal();
         return
     }
 
