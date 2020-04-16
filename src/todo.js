@@ -34,7 +34,8 @@ console.log('modalBox on top');
 console.log(modalBox);
 
 let todoDataBase = [];
-let uuid = 0;
+// let uuid = 0;
+let uuid = Math.random();
 
 const fetchedTodos = localStorage.getItem('todo_items');
 
@@ -102,14 +103,13 @@ const createTodoItem = (id, todoTaskTitle, isDone, doUntilDate, doUntilTime) => 
                     </div>
     `;
 
-    todoWrapper.insertAdjacentHTML('afterbegin', todoItem);
+    todoWrapper.insertAdjacentHTML('beforeend', todoItem);
     // todoWrapper.insertAdjacentHTML('beforeend', todoItem);
     // todoDataBase.push(todoItem)
 
     localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 };
 
-//Fails because i store html
 const loadState = (db) => {
     // db.map(todoItem =>
     //     createTodoItem(todoItem.uuid, todoItem.task, todoItem.isDone, todoItem.doUntilDate, todoItem.doUntilTime));
@@ -118,17 +118,17 @@ const loadState = (db) => {
 
 if (fetchedTodos) {
     todoDataBase = JSON.parse(fetchedTodos);
-    uuid = todoDataBase.length;
+    // uuid = todoDataBase.length;
     loadState(todoDataBase);
 } else {
     todoDataBase = [];
-    uuid = 0;
+    uuid = Math.random();
+    // uuid = 0;
 }
 
 const saveTodoItem = (id) => {
 
 
-    //
     // // Updating todoitem
     if (id) {
         const todoContent = todoDataBase.filter(item => id === item.id.toString());
@@ -143,13 +143,18 @@ const saveTodoItem = (id) => {
         const todoUntilDate = modalDate.value;
         const todoUntilTime = modalTime.value;
 
-        todoDataBase[id].task = todoTextContent;
-        todoDataBase[id].doUntilDate = todoUntilDate;
-        todoDataBase[id].doUntilTime = todoUntilTime;
+
+        // Find index of the id that gets update
+        const indexToUpdate = todoDataBase.findIndex(item => item.id.toString() === id);
+
+
+        todoDataBase[indexToUpdate].task = todoTextContent;
+        todoDataBase[indexToUpdate].doUntilDate = todoUntilDate;
+        todoDataBase[indexToUpdate].doUntilTime = todoUntilTime;
 
         localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 
-    } else {
+    } else { // Save new todoitem
         const todoTextContent = modalTextarea.value;
         const todoUntilDate = todoDate.value;
         const todoUntilTime = todoTime.value;
@@ -157,14 +162,11 @@ const saveTodoItem = (id) => {
         if (!todoTextContent) {
             alert('you failed');
             event.preventDefault();
-            // hideModal();
             return;
         }
 
 
         createTodoItem(uuid, todoTextContent, false, todoUntilDate, todoUntilTime);
-        // console.log(`log from saveTodoItem:  ${uuid} ${todoTextContent} ${todoUntilDate} ${todoUntilTime}`);
-        // console.log(`log string => date ${todoUntilDate} to ${new Date(todoUntilDate)}`);
 
         todoDataBase.push({
             id: uuid,
@@ -176,7 +178,7 @@ const saveTodoItem = (id) => {
 
         localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
 
-        uuid++;
+        // uuid++;
 
         todoText.value = '';
         todoDate.value = '';
@@ -188,21 +190,14 @@ const saveTodoItem = (id) => {
 
 
 const toggleTodoTask = (todoItem) => {
-
     const todoItemWrapper = todoItem.parentNode.parentNode;
-
     todoItemWrapper.classList.toggle('todo-done');
     todoItem.classList.toggle('toggle');
-
-    // Tony    seeTodoDate.classList.toggle('todo-hide');
-
     todoDataBase[todoItem.id].isDone = !todoDataBase[todoItem.id].isDone;
 };
 
 
 [...allCheckBoxContainer].forEach(inputTag => inputTag.nextSibling.nextSibling.addEventListener('click', event => {
-    // event.stopPropagation();
-    // event.stopImmediatePropagation();
     console.log('element that clicked');
     console.log(event.currentTarget);
     const circle = event.target;
@@ -213,12 +208,9 @@ const toggleTodoTask = (todoItem) => {
 }));
 
 const deleteTodo = (id) => {
-    // console.log(todoDataBase.map(item => item.id));
     console.log(typeof id);
-    // console.log(typeof todoDataBase[0].id);
     const newDB = todoDataBase.filter(item => item.id.toString() !== id);
     todoDataBase = newDB;
-    // let db = todoDataBase.filter(item => item.id !== id);
     localStorage.setItem('todo_items', JSON.stringify(newDB));
     location.reload();
     return false;
@@ -226,55 +218,21 @@ const deleteTodo = (id) => {
 
 const deleteIcons = document.querySelectorAll('.trash-icon');
 [...deleteIcons].forEach(trashItem => trashItem.addEventListener('click', event => {
-    // event.stopPropagation();
     const trash = event.currentTarget;
-    // console.log(trash);
-    // console.log(trash.id);
     deleteTodo(trash.id);
 }));
 
 
 // Edit todoitem functionality
 const showFetchedModal = (id) => {
-
-
-    console.log('modalBox');
-    console.log(modalBox);
     showModal();
-    // modalPage.classList = `model-container ${id}`;
     saveBtn.classList = `todo todo-save ${id}`;
-    console.log('greenbtn');
-    console.log(saveBtn.classList);
-    console.log('modalDate');
-    console.log(modalDate);
-
 
     const todoContent = todoDataBase.filter(item => id === item.id.toString());
-    console.log('log the array');
     todoDataBase.map(tasks => console.log(tasks));
-    console.log('log the picked array');
-    console.log(todoContent[0].task);
-    console.log(todoContent[0].doUntilDate.toString());
-    console.log(todoContent[0].doUntilTime.toString());
-    console.log('modalDate');
-    console.log(modalDate);
-
     modalTextarea.textContent = todoContent[0].task;
     modalDate.setAttribute('value', todoContent[0].doUntilDate); //todo
     modalTime.setAttribute('value', todoContent[0].doUntilTime.toString()); //todo
-
-
-    // const todoTextContent = modalTextarea.value;
-    // const todoUntilDate = modalDate.value;
-    // const todoUntilTime = modalTime.value;
-    //
-    // todoDataBase[id].task = todoTextContent;
-    // todoDataBase[id].doUntilDate = todoUntilDate;
-    // todoDataBase[id].doUntilTime = todoUntilTime;
-    //
-    // localStorage.setItem('todo_items', JSON.stringify(todoDataBase));
-
-
 };
 
 
