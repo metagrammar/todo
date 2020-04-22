@@ -1,0 +1,542 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+
+/* Removes the blue line around these items */
+textarea, input, button {
+    outline: none;
+}
+
+/* Navigation bar */
+.navigation {
+    display: grid;
+    grid-template-columns: 1fr minmax(280px, 1170px) 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 0px;
+    height: 5em;
+    width: 100%;
+    margin-top: 0;
+    position: fixed;
+    top: 0;
+    background: #C471ED;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #C471ED, #F64F59); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #C471ED, #F64F59); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    z-index: 1;
+}
+
+.navbar-left {
+    display: grid;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    height: 5em;
+}
+
+.navbar-right {
+    display: grid;
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+}
+
+.navbar {
+    display: grid;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    grid-gap: 0px;
+    height: 5em;
+    padding: 0;
+    /* margin: 0 auto; */
+    justify-items: end;
+}
+
+.navbar h1 {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 1.2rem;
+    height: 1.25em;
+    align-self: center;
+    justify-self: center;
+    margin-top: 30px;
+    text-align:center;
+}
+
+.navbar h1 span, .model-content-header span {
+    font-weight: 700;
+}
+
+.settingsBtn {
+    display: grid;
+    margin-top: 0.5em;
+    width: 2em;
+    height: 2em;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    justify-items: center;
+    align-items: center;
+}
+
+.settingsBtn:hover {
+    color: rgba(255, 255, 255, 1.7);
+    transform: scale(1.2);
+    transition: ease-in 300ms;
+}
+
+.settingsBtn .material-icons {
+    font-size: 1.25rem;
+}
+
+a.add-todo {
+    display:grid;
+    grid-template-rows: 1fr;
+    color: #666666;
+    background-color: #ffffff;
+    box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.1);
+    height: 50px;
+    width: 50px;
+    /* margin-right: 2em; */
+    border-radius: 50%;
+    justify-items: center;
+    text-decoration: none;
+}
+
+a.add-todo:hover {
+    background-color: #000;
+    color: #ffffff;
+    transform: scale(1.2);
+    transition: ease-in 300ms;
+}
+
+.add-todo {
+    border: 0;
+    height: inherit;
+    width: inherit;
+}
+
+a.add-todo span.material-icons {
+    grid-row: 2 / 3;
+    grid-gap: 0px;
+    line-height: 50px;
+}
+
+/* Container with the grid Content + footer */
+.parent {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 5em;
+    grid-gap: 0px;
+    width: 100%;
+}
+
+/* Content */
+.content {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 1em;
+    width: 100%;
+    margin-top: 5em;
+}
+
+.content-gridder {
+    display: grid;
+    grid-column: 2 / 3;
+    grid-gap: 0px;
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-rows: 1fr;
+    grid-gap: 2em 2em;
+    padding-top: 1.5em;
+}
+
+
+
+/* Todo box  */
+
+.todo-box { /* Level 2 grid division: the articles */
+    padding: 1em;
+    background: #fff;
+    min-height: 80px;
+    max-height: min-content;
+    border-radius: 0.5em;
+    border: 1px solid #f5f5f5;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1),
+    0 20px 20px rgba(0, 0, 0, 0.05);
+}
+.todo-hide {
+    display: none;
+}
+
+.todo-time {
+    font-size: 0.75rem;
+    color: #adadad;
+    line-height: 1.2em;
+    padding-left: 35px;
+    margin-bottom: 5px;
+    display: grid;
+    grid-template-columns: 15px 1fr 15px;
+    grid-template-rows: 1fr;
+    column-gap: 0.5em;
+}
+
+.todo-time span {
+    font-size: 0.75rem;
+    line-height: 1.2em;
+    vertical-align: text-bottom;
+}
+
+.trash-icon {
+    cursor:pointer;
+    justify-self: end;
+}
+
+
+.todo-text {
+    font-size: 1rem;
+    color: #666666;
+    line-height: 1.2em;
+}
+
+/* Grid row for the todos that are done  */
+.todo-done {
+    padding: 2em auto;
+}
+
+/* Differenciated styles for the todo boxes that are done take the .todo-done class their own class  */
+
+.todo-done .todo-box {
+    background-color: #e3e3e3;
+    border: 1px solid #d1d1d1;
+}
+
+/*Dublicate for an easier implementation of todos: Descendant to clas class*/
+
+.todo-done.todo-box {
+    background-color: #e3e3e3;
+    border: 1px solid #d1d1d1;
+}
+
+.todo-done .todo-text {
+    text-decoration: line-through;
+}
+
+/* Customizes the label container */
+.checkbox-container{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hides the browser's default checkbox */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Creates a custom checkbox area */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 50%;
+}
+
+/* Adds a hover style to the UNselected custom checkbox area */
+.checkmark:hover {
+    background-color: #e3e3e3;
+    border: 1px solid #d1d1d1;
+}
+
+/* Adds a style to the Selected custom checkbox area */
+.checkbox-container .checkmark.toggle {
+    background-color: #68CC65;
+    border: 1px solid #55A553;
+}
+
+/*  Footer */
+
+.footer {
+    padding: 1px;
+    background-color: #333;
+    height: 2em;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+/* Modal page styles */
+
+
+.modal-container, .modal-container-bkg-color{
+    display: none;
+    grid-template-columns: 1fr minmax(280px, 500px) 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 0px;
+    padding: 1em;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+}
+
+.model_box {
+    display: grid;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    grid-gap: 0px;
+   /*  grid-template-rows: 40px 1fr 1fr; */
+    width: 100%;
+    min-height: 460px;
+    margin: auto;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+.model_header {
+    justify-self: end;
+    height: 40px;
+}
+
+button.close-modal{
+    border: 0;
+    padding:0;
+    color: #666666;
+    background-color: transparent;
+}
+.model-content-header {
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: #666666;
+    margin-bottom: 0.5em;
+}
+
+.model-content-box {
+    margin-bottom: 2em;
+}
+
+.model-content-box label {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #adadad;
+    margin-left: 1em;
+}
+
+textarea {
+    border: 1px solid #D1D1D1;
+    background-color: #ffffff;
+    width: 100%;
+    height: 10em;
+    padding: 1em;
+    font-family: 'Montserrat', sans-serif;
+}
+
+input[type=date], input[type=time] {
+    margin-right: 1em;
+    height: 3em;
+    padding-left: 1em;
+    font-size:1rem;
+    color: #adadad;
+    font-family: 'Montserrat', sans-serif;
+}
+
+textarea::placeholder {
+    color: #adadad;
+    font-size:0.875rem;
+}
+
+.model_footer {
+    justify-self: center;
+    align-self: end;
+    margin-top: 1em;
+}
+
+button.todo {
+    font-size: 1.2em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    color: #ffffff;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.1);
+    border: 0;
+}
+
+button.todo-delete{
+    background-color: #CC6565;
+    margin-right: 3em;
+}
+
+button.todo-save{
+    background-color: #62D067;
+}
+
+
+/* Make me yours overlay styles */
+.modal-container-bkg-color p{
+    color: #999999;
+    font-size: 0.875rem;
+    line-height: 1.5em;
+}
+
+.modal-container-bkg-color .model-content-box {
+    margin: 1em 0;
+}
+
+.model-content-box p span{
+    text-transform: uppercase;
+}
+.centerElement {
+    display: flex;
+    justify-content: center;
+}
+
+.colorSampler {
+    text-align:center;
+    position: relative;
+    width: 10em;
+    height: 10em;
+    border-radius: 10%;
+    overflow: hidden;
+    border: 5px solid #ffffff;
+    margin-bottom: 1em;
+    background-color: #ffffff;
+  }
+  
+  .headerColor, .bodyColor {
+    position: absolute;
+    width: 100%;
+    font-size: 0.75rem;
+    cursor: pointer;
+  }
+
+  .headerColor {
+    left: 0;
+    top: 0;
+    height: 30%;
+    padding-top: 1em;
+    color: rgba(255, 255, 255, 0.5);
+    background: linear-gradient(90deg, #C471ED 0%, #F64F59 100%);
+  }
+  
+  .bodyColor {
+    right: 0;
+    bottom: 0;
+    height: 65%;
+    padding-top: 3em;
+    color: rgba(0,0,0,0.5);
+    background-color: #f5f5f5;
+  }
+  
+  .headColorOptions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bodyColorOptions {
+    display: none;
+  }
+
+  .headColorOptions, .bodyColorOptions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5em auto;
+  }
+
+.headColorOptions p, .bodyColorOptions p{
+    text-align: center;
+    width: 100%;
+    margin-bottom:0.5em;
+    text-transform: uppercase;
+  }
+  
+  .colorBox {
+    width: 3em;
+    height: 3em;
+    border: 1px solid #D1D1D1;
+    border-radius: 50%;
+    margin-right:2em;
+    box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  .colorBox:hover {
+    border: 5px solid #ffffff;
+    transform: scale(1.1);
+    transition: ease-in 200ms;
+  }
+  
+  .activeColor {
+    border: 5px solid #ffffff;
+  }
+  
+  .gradDefault {
+    background: #373B44;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #C471ED, #F64F59); 
+    background: linear-gradient(to right, #C471ED, #F64F59);
+  }
+  
+  .gradBlue {
+    background: #373B44;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4286f4, #373B44); 
+    background: linear-gradient(to right, #4286f4, #373B44);
+  }
+  
+  .gradGreen {
+    background: #11998e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+    background: linear-gradient(to right, #38ef7d, #11998e);
+  }
+
+
+.bodyDefault {
+    background: #f5f5f5;
+}
+
+.bodyDark {
+    background: #373B44;
+}
+
+.bodyGreen {
+    background: #11998e;
+}
